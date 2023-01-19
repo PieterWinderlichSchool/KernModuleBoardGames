@@ -1,4 +1,4 @@
-﻿using System.Collections;
+﻿    using System.Collections;
 using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
@@ -11,7 +11,8 @@ public class PlatformHandeler : MonoBehaviour
     private List<GameObject> activePlatforms;
     [SerializeField]
     private Vector3 newSpawnVector;
-
+    [SerializeField]
+    private float platformMovementSpeed;
     public int minimalDespawn;
     
     // Start is called before the first frame update
@@ -42,20 +43,24 @@ public class PlatformHandeler : MonoBehaviour
     {   
         
         
-        //activePlatforms.Sort();
+
         var newBlockNumber = Mathf.FloorToInt(Random.Range(0f, platforms.Count));
         GameObject newBlock = platforms[newBlockNumber];
         Destroy(activePlatforms[0].gameObject);
         activePlatforms.Remove(activePlatforms[0]);
         
         GameObject gobject = Instantiate(newBlock,newSpawnVector,newBlock.transform.rotation);
+        gobject.GetComponent<PlatformMovement>().SetMovementSpeed(platformMovementSpeed);
         activePlatforms.Add(gobject);
-        
-        
-        
-        
-        
-        
-        
+
+    }
+
+    public void SetNewMovementSpeed(float newSpeed)
+    {
+        platformMovementSpeed = newSpeed;
+    }
+    public List<GameObject> getActiveObjects()
+    {
+        return activePlatforms;
     }
 }

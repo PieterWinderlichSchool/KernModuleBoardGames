@@ -6,6 +6,9 @@ public class GateMovement : MonoBehaviour
 {
 
     public ManageCanvasses cManager;
+    public List<GameObject> gateHalves = new List<GameObject>();
+
+    public float gateOpening = 20;
     // Start is called before the first frame update
     void Start()
     {
@@ -15,22 +18,24 @@ public class GateMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (transform.position.z <= 0)
-        {
-            Time.timeScale = 0;
-            cManager.changeCanvass(3);
-            this.gameObject.SetActive(false);
-            
-        }else if (transform.position.z >= 200)
+        if (gateOpening <= 0)
         {
             Time.timeScale = 0;
             cManager.changeCanvass(2);
             this.gameObject.SetActive(false);
+            
+        }else if (gateOpening >= 200)
+        {
+            Time.timeScale = 0;
+            cManager.changeCanvass(3);
+            this.gameObject.SetActive(false);
         }
     }
 
-    public void MoveGate(int newZLocation)
+    public void MoveGate(float newXLocation)
     {
-        transform.position += new Vector3(0,0,newZLocation);
+        gateOpening -= newXLocation;
+        gateHalves[0].transform.position -= new Vector3(newXLocation/10,0,0);
+        gateHalves[1].transform.position += new Vector3(newXLocation/10,0,0);
     }
 }

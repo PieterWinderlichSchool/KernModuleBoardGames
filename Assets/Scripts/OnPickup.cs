@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 
 public class OnPickup : MonoBehaviour
@@ -15,20 +16,30 @@ public class OnPickup : MonoBehaviour
     public List<Sprite> appearances = new List<Sprite>();
 
     public int ScoreValue = 0;
-    
+
+    public delegate void CallProgress();
+
+    public CallProgress progressCall;
+
+    public int imageIndex;
+     
     // Start is called before the first frame update
     void Awake()
     {
+        
         gate = GameObject.FindWithTag("Gate").GetComponent<GateMovement>();
         score = GameObject.FindWithTag("ScoreManager").GetComponent<ScoreManager>();
+        
     }
 
     public void ceatePickup(int itemIndex)
     {
         appearance.sprite = appearances[itemIndex];
+        
         if (itemIndex == 1)
         {
             isPoints = true;
+            imageIndex = 1;
         }
     }
 
@@ -36,8 +47,8 @@ public class OnPickup : MonoBehaviour
     {
         if (other.gameObject.name == "Player")
         {
-            progressGate();
-            
+            progressCall += progressGate;
+            progressCall();
         }
     }
 
@@ -47,13 +58,18 @@ public class OnPickup : MonoBehaviour
         {
             gate.MoveGate(10);
             score.UpdateScore(ScoreValue);
-            Destroy(this.gameObject);
+            appearance.enabled = false;
+            Invoke("DestroyGameObject",2f);
         }
         else
         {
             gate.MoveGate(-10);
-            Destroy(this.gameObject);
+            appearance.enabled = false;
+            Invoke("DestroyGameObject",2f);
         }
-        
     } 
+    public void DestroyGameObject()
+    {
+            Destroy(this.gameObject);
+    }
 }

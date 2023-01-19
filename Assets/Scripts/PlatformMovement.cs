@@ -23,4 +23,9 @@ public class PlatformMovement : MonoBehaviour
         transform.position += new Vector3(0, 0, -movementSpeed * Time.deltaTime);
         
     }
+
+    public void SetMovementSpeed(float newSpeed)
+    {
+        movementSpeed = newSpeed;
+    }
 }

@@ -39,7 +39,7 @@ using UnityEngine.UI;
             _HighScore = _currentScore;
             _HighscoreBreached = true;
         }
-        _currentScoreText.text = "Current Score:" + "\n" + _currentScore;
-        _HighScoreText.text = "Current Highscore:" + "\n" + _HighScore;
+        _currentScoreText.text = "Souls amount:" + "\n" + _currentScore /10;
+        _HighScoreText.text = "Current soul Highscore:" + "\n" + _HighScore/10;
     }
 }

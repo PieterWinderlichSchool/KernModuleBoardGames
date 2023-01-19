@@ -21,7 +21,7 @@ public class SpawnCillisionObjects : MonoBehaviour
         int randomNumbrero = (int) Mathf.Floor(Random.Range(0, maxChanceToSpawnObject));
         if (randomNumbrero < maxChanceToSpawnObject - (maxChanceToSpawnObject / 2))
         {
-            int randomNumbrero1 = (int) Mathf.Floor(Random.Range(0f, 5));
+            int randomNumbrero1 = (int) Mathf.Floor(Random.Range(0f, 3));
             GameObject newObstacle = Instantiate(hurdleObjectToSpawn,Vector3.zero, Quaternion.identity, this.transform);
             newObstacle.transform.localPosition = spawnLocations[randomNumbrero1];
             int randomNumbrero2 = (int) Mathf.Floor(Random.Range(0f, 2));
